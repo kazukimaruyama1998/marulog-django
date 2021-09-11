@@ -1,0 +1,53 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+<!-- Jumbotron -->
+<div class="p-5 text-center bg-light">
+    <h1 class="mb-3">marulog</h1>
+    <h4 class="mb-3">This is my travel blog</h4>
+    
+</div>
+<!-- Jumbotron -->
+<!-- card-->
+<!--card-->
+<div class="card-deck">
+
+    {% for item in post_list %}
+        
+    <div class="card mb-4"></div>
+            {% if item.thumbnail %}
+            <img src="{{ item.thumbnail.url }}" class="card-img-top" alt="{{item.title}}" />
+
+            {% else %}
+            <img src="https://mdbootstrap.com/img/new/standard/city/044.jpg" class="card-img-top" alt="{{item.title}}"/>
+            {% endif %}
+            
+            <div class="card-body">
+                <h5 class="card-title">{{ item.title }}<small>{{ item.author }}</small></h5>
+                <p></p>{{ item.category }}
+                <p class="card-text">{{ item.content|safe|truncatechars_html:30}}</p>
+                <a href="{% url 'myapp:post_detail' item.id %}" type="button" class="btn btn-light-blue btn-md">Read more</a>
+            </div>
+            <div class="card-footer">
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+<!-- card-->
+{% endfor %}
+ 
+
+
+
+
+
+
+
+
+{% endblock %}
+

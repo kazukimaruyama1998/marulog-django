@@ -1,0 +1,51 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+<div class="row">
+    
+    <div class="col-md-9">
+        <br>
+        <!-- card -->
+
+        <div class="card">
+            {% if object.thumbnail %}
+            <img src="{{ object.thumbnail.url }}" class="card-img-top" alt="{{ object.title }}" />
+            {% else %}
+            <img src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" class="card-img-top" alt="..." />
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ object.title }}</h5>
+                <p class="card-text">
+                {{ object.content | safe | linebreaksbr | urlize }}
+                </p>
+                <a class ='btn' href="{% url 'myapp:like_add' object.pk %}" style="background-color:darkturquoise; color:floralwhite">お気に入り</a>
+                <br><hr>
+                <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-outline-dark">Back</a>
+                {% if object.author == request.user %}
+                <a href="{% url 'myapp:post_update' object.id %}" class="btn btn-primary">更新</a>
+                <a href="{% url 'myapp:post_delete' object.id %}" class="btn btn-danger">削除</a>
+                {% endif %}
+            </div>
+        </div>
+        
+    </div>
+    <div class="col-md-3">
+                <!-- card -->
+                <!-- card -->
+
+                <div class="card">
+                    <div class="card-body"></div>
+                      <h5 class="card-title">{{ object.category }}</h5>
+                      <p>More articles in this category.</p>
+                </div>
+                <ul class="list-group" >
+                    {% for item in category_posts %}
+                    <li class='list-group-item'><a href="{% url 'myapp:post_detail' item.id %}">{{ item.title }}</a></li>
+                    {% endfor %}
+                </ul>
+                
+                <!-- card -->
+        
+        <br>
+</div>
+{% endblock %}
